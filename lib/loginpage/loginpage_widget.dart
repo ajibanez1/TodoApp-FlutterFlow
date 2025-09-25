@@ -88,13 +88,19 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.asset(
-                        'assets/images/To_Do.png',
-                        width: 100.0,
-                        fit: BoxFit.cover,
-                      ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.asset(
+                            'assets/images/To_Do.png',
+                            width: 100.0,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ],
                     ),
                     Container(
                       height: 305.1,
