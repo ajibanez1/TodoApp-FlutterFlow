@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Task",
+  "type": "object",
+  "properties": {
+    "collections": {
+      "type": "boolean",
+      "description": "Indicates whether the task belongs to a collection"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the task was created"
+    },
+    "details": {
+      "type": "string",
+      "description": "Additional details about the task"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title of the task"
+    },
+    "user": {
+      "type": "string",
+      "description": "Reference to the user who owns this task (Firestore document path)"
+    }
+  },
+  "required": [
+    "created",
+    "title",
+    "user"
+  ]
+}
