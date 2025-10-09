@@ -12,7 +12,7 @@ class InspirationalQuoteCall {
   static Future<ApiCallResponse> call() async {
     return ApiManager.instance.makeApiCall(
       callName: 'inspirationalQuote',
-      apiUrl: 'https://zenquotes.io/api/random',
+      apiUrl: 'https://zenquotes.io/api/random/',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -25,7 +25,7 @@ class InspirationalQuoteCall {
     );
   }
 
-  static String? quote(dynamic response) => castToType<String>(getJsonField(
+  static String? quoteText(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$[:].q''',
       ));
