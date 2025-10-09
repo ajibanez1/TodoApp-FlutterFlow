@@ -5,6 +5,7 @@ import '/components/task_bottom_sheet_widget.dart';
 import '/components/task_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -191,47 +192,29 @@ class _TasksWidgetState extends State<TasksWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        width: 356.53,
-                        height: 100.0,
+                        width: 356.5,
+                        height: 146.26,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14.0),
                           border: Border.all(
                             color: FlutterFlowTheme.of(context).primaryText,
                           ),
                         ),
-                        child: Flex(
-                          direction: Axis.vertical,
+                        child: Column(
                           mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: FutureBuilder<ApiCallResponse>(
-                                future: InspirationalQuoteCall.call(),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
-                                        child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  final textInspirationalQuoteResponse =
-                                      snapshot.data!;
-
-                                  return Text(
-                                    getJsonField(
-                                      textInspirationalQuoteResponse.jsonBody,
-                                      r'''$[:].q''',
-                                    ).toString(),
+                            Flex(
+                              direction: Axis.vertical,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    valueOrDefault<String>(
+                                      _model.apiResponse,
+                                      '[Press Button for Quote]',
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -255,8 +238,74 @@ class _TasksWidgetState extends State<TasksWidget> {
                                                   .bodyMedium
                                                   .fontStyle,
                                         ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            FFButtonWidget(
+                              onPressed: () async {
+                                _model.apiResult1wy =
+                                    await InspirationalQuoteCall.call();
+
+                                if ((_model.apiResult1wy?.succeeded ?? true)) {
+                                  _model.apiResponse = getJsonField(
+                                    (_model.apiResult1wy?.jsonBody ?? ''),
+                                    r'''$[:].q''',
+                                  ).toString();
+                                  safeSetState(() {});
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'error',
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondary,
+                                    ),
                                   );
-                                },
+                                }
+
+                                safeSetState(() {});
+                              },
+                              text: 'Get Quote',
+                              options: FFButtonOptions(
+                                width: 100.0,
+                                height: 20.0,
+                                padding: EdgeInsets.all(0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context).secondary,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleMedium
+                                    .override(
+                                      font: GoogleFonts.interTight(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .titleMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleMedium
+                                          .fontStyle,
+                                    ),
+                                elevation: 0.0,
+                                borderSide: BorderSide(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                                borderRadius: BorderRadius.circular(24.0),
                               ),
                             ),
                           ],
